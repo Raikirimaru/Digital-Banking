@@ -9,10 +9,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import iai.glsib.backend.entities.BankAccount;
-import iai.glsib.backend.entities.Customer;
-import iai.glsib.backend.exceptions.BalanceNotSufficientException;
-import iai.glsib.backend.exceptions.BankAccountNotFoundException;
+import iai.glsib.backend.dtos.BankAccountDTO;
+import iai.glsib.backend.dtos.CurrentBankAccountDTO;
+import iai.glsib.backend.dtos.CustomerDTO;
+import iai.glsib.backend.dtos.SavingBankAccountDTO;
 import iai.glsib.backend.exceptions.CustomerNotFoundException;
 import iai.glsib.backend.services.BankAccountService;
 
@@ -27,28 +27,35 @@ public class BackendApplication {
 	CommandLineRunner commandLineRunner(BankAccountService bankAccountService) {
 		return args -> {
 			Stream.of("Rose", "Jean", "George", "Alexia", "Thomas").forEach( name -> {
-				Customer customer = new Customer();
-				customer.setName(name);
-				customer.setEmail(name + "@gmail.com");
-				bankAccountService.saveCustomer(customer);
+				CustomerDTO customerDto = new CustomerDTO();
+				customerDto.setName(name);
+				customerDto.setEmail(name + "@gmail.com");
+				bankAccountService.saveCustomer(customerDto);
 			});
 
 			bankAccountService.listCustomers().forEach(c -> {
 				try {
 					bankAccountService.saveCurrentBankAccount(Math.random() * 9000, 9522, c.getId());
 					bankAccountService.saveSavingBankAccount(Math.random() * 12000, 6.8, c.getId());
-					List<BankAccount> bankAccounts = bankAccountService.listbankAccounts();
-					for (BankAccount bankAccount : bankAccounts) {
-						for (int i = 0; i < 10; i++) {
-							bankAccountService.credit(bankAccount.getId(), 1000 + Math.random() * 12000, "Credit");
-							bankAccountService.debit(bankAccount.getId(), 1000 + Math.random() * 9000, "Debit");
-						}
-					}
-				} catch (CustomerNotFoundException | BankAccountNotFoundException | BalanceNotSufficientException e) {
+				} catch (CustomerNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 			});
+
+			List<BankAccountDTO> bankAccounts = bankAccountService.listbankAccounts();
+			for (BankAccountDTO bankAccount : bankAccounts) {
+				for (int i = 0; i < 10; i++) {
+					String accountId;
+					if (bankAccount instanceof SavingBankAccountDTO) {
+						accountId = ((SavingBankAccountDTO) bankAccount).getId();
+					} else {
+						accountId = ((CurrentBankAccountDTO) bankAccount).getId();
+					}
+					bankAccountService.credit(accountId, 1000 + Math.random() * 12000, "Credit");
+					bankAccountService.debit(accountId, 1000 + Math.random() * 9000, "Debit");
+				}
+			}
 		};
 	}
 
