@@ -1,8 +1,12 @@
 package iai.glsib.backend.entities;
 
+import java.util.Date;
 import java.util.List;
 
+import iai.glsib.backend.enums.Genre;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -20,6 +24,12 @@ public class Customer {
     private Long id;
     private String name;
     private String email;
+    private Date DateOfBirth;
+    @Enumerated(EnumType.STRING)
+    private Genre sexe;
+    private String address;
+    private String tel;
+    private String nationality;
     @OneToMany(mappedBy = "customer")
     private List<BankAccount> bankAccounts;
 }

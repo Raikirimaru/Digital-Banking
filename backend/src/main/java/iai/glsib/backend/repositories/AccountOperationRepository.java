@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import iai.glsib.backend.entities.AccountOperation;
 
 public interface AccountOperationRepository extends JpaRepository<AccountOperation, Long> {
-    List<AccountOperation> findByBankAccoundId(String accountId);
-    Page<AccountOperation> findByBankAccoundPageId(String accountId, Pageable pageable);
+    List<AccountOperation> findByBankAccount_Id(String accountId);
+    Page<AccountOperation> findByBankAccount_IdOrderByOperationDateDesc(String accountId, Pageable pageable);
 }

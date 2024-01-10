@@ -1,6 +1,18 @@
 spring:
     datasource:
         url: jdbc:h2:mem:bank
+       # username: postgres
+       # password: AdGAaEf2fa1G*34aCge5f1c-baD5fGg-
+    jpa:
+        hibernate:
+            ddl-auto: update 
     h2:
         console:
             enabled: true
+
+# springdoc:
+#     swagger-ui:
+#         path: /swagger-ui.html
+#         enabled: true
+#     api-docs: true
+# jdbc:h2:mem:bank

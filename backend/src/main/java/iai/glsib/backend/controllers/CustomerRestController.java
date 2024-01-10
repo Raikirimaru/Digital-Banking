@@ -14,44 +14,44 @@ import org.springframework.web.bind.annotation.RestController;
 
 import iai.glsib.backend.dtos.CustomerDTO;
 import iai.glsib.backend.exceptions.CustomerNotFoundException;
-import iai.glsib.backend.services.BankAccountService;
+import iai.glsib.backend.services.CustomerService;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 @CrossOrigin("*")
 public class CustomerRestController {
-    private BankAccountService bankAccountService;
+    private CustomerService customerService;
 
     @GetMapping("/customers")
     public List<CustomerDTO> customers() {
-        return bankAccountService.listCustomers();
+        return customerService.listCustomers();
     }
 
     @GetMapping("/customers/{id}")
     public CustomerDTO getCustomer(@PathVariable(name = "id") Long customerId) throws CustomerNotFoundException {
-        return bankAccountService.getCustomer(customerId);
+        return customerService.getCustomer(customerId);
     }
 
     @PostMapping("/customers")
     public CustomerDTO addCustomer(@RequestBody CustomerDTO customerDTO) {
-        return bankAccountService.saveCustomer(customerDTO);
+        return customerService.saveCustomer(customerDTO);
     }
 
     @PutMapping("/customers/{id}")
     public CustomerDTO updateCustomerDTO(@PathVariable(name = "id") Long customerId, @RequestBody CustomerDTO customerDTO) {
         customerDTO.setId(customerId);
-        return bankAccountService.updateCustomer(customerDTO);
+        return customerService.updateCustomer(customerDTO);
     }
 
     @DeleteMapping("/customers/{id}")
     public void deleteCustomer(@PathVariable(name = "id") Long customerID) {
-        bankAccountService.deleteCustomer(customerID);
+        customerService.deleteCustomer(customerID);
     }
 
     @GetMapping("/customers/search")
     public List<CustomerDTO> searchCustomers(@RequestParam(name = "keyword",defaultValue = "") String keyword){
-        return bankAccountService.searchCustomers("%"+keyword+"%");
+        return customerService.searchCustomers("%"+keyword+"%");
     }
 }
 

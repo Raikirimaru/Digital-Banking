@@ -15,6 +15,7 @@ import iai.glsib.backend.dtos.CustomerDTO;
 import iai.glsib.backend.dtos.SavingBankAccountDTO;
 import iai.glsib.backend.exceptions.CustomerNotFoundException;
 import iai.glsib.backend.services.BankAccountService;
+import iai.glsib.backend.services.CustomerService;
 
 @SpringBootApplication
 public class BackendApplication {
@@ -24,16 +25,16 @@ public class BackendApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(BankAccountService bankAccountService) {
+	CommandLineRunner commandLineRunner(CustomerService customerService, BankAccountService bankAccountService) {
 		return args -> {
 			Stream.of("Rose", "Jean", "George", "Alexia", "Thomas").forEach( name -> {
 				CustomerDTO customerDto = new CustomerDTO();
 				customerDto.setName(name);
 				customerDto.setEmail(name + "@gmail.com");
-				bankAccountService.saveCustomer(customerDto);
+				customerService.saveCustomer(customerDto);
 			});
 
-			bankAccountService.listCustomers().forEach(c -> {
+			customerService.listCustomers().forEach(c -> {
 				try {
 					bankAccountService.saveCurrentBankAccount(Math.random() * 9000, 9522, c.getId());
 					bankAccountService.saveSavingBankAccount(Math.random() * 12000, 6.8, c.getId());
@@ -52,8 +53,8 @@ public class BackendApplication {
 					} else {
 						accountId = ((CurrentBankAccountDTO) bankAccount).getId();
 					}
-					bankAccountService.credit(accountId, 1000 + Math.random() * 12000, "Credit");
-					bankAccountService.debit(accountId, 1000 + Math.random() * 9000, "Debit");
+					bankAccountService.credit(accountId, 32000 + Math.random() * 12000, "Credit");
+					bankAccountService.debit(accountId, 12000 + Math.random() * 9000, "Debit");
 				}
 			}
 		};
