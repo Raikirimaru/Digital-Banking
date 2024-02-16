@@ -3,6 +3,7 @@ package iai.glsib.backend.services;
 import java.util.List;
 
 import iai.glsib.backend.dtos.BankAccountDTO;
+import iai.glsib.backend.dtos.BankAccountsDTO;
 import iai.glsib.backend.dtos.CurrentBankAccountDTO;
 import iai.glsib.backend.dtos.SavingBankAccountDTO;
 import iai.glsib.backend.exceptions.BalanceNotSufficientException;
@@ -25,5 +26,11 @@ public interface IBankAccountService {
     void credit(String accountId, double amount, String desc) throws BankAccountNotFoundException;
 
     // virements
-    void transfer(String accountIdSrc, String accountIdDst, double amount) throws BankAccountNotFoundException, BalanceNotSufficientException;
+    void transfer(String accountIdSrc, String accountIdDst, double amount, String desc) throws BankAccountNotFoundException, BalanceNotSufficientException;
+
+    List<BankAccountDTO> bankAccountListOfCustomer(Long id);
+
+    BankAccountsDTO getBankAccountList(int page);
+
+    BankAccountDTO updateBankAccount(BankAccountDTO bankAccountDTO);
 }

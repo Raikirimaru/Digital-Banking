@@ -3,6 +3,9 @@ package iai.glsib.backend.entities;
 import java.util.Date;
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import iai.glsib.backend.enums.Genre;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -31,5 +34,6 @@ public class Customer {
     private String tel;
     private String nationality;
     @OneToMany(mappedBy = "customer")
-    private List<BankAccount> bankAccounts;
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<BankAccount> bankAccounts = new java.util.ArrayList<>();
 }

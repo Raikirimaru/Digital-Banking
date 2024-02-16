@@ -1,0 +1,66 @@
+<div class="page" style="padding-top: 2%;">
+    <div class="container">
+      <ng-container *ngIf="customers |async as listCustomers; else failureOrLading" >
+        <div style="text-align: center;" class="card" *ngIf="customers" style="background: linear-gradient(30deg, #d0ded5, #3b3f44);">
+          <div class="card-header" style="display: flex; align-items: center;">
+            <img src="https://www.pngall.com/wp-content/uploads/2016/05/Customer-Download-PNG.png" style="width: 10%; height: 8%;">
+            <h1 style="font-size: 60px; margin-left: 10px;">All customers</h1>
+          </div>
+          <div class="card-body" style="font-size: 20px;" style="text-align: center;background: linear-gradient(3deg, #b0b0b2, #d0ded5);">
+            <form [formGroup]="searchFormGroup" (ngSubmit)="searchCustomers()">
+              <div class="input-group">
+                <label class="input-group-text" style="font-size: 20px;width: 20%;margin:0% 5%;background: linear-gradient(3deg, #343a40, #d0ded5);border-radius: 10px">Research </label>
+                <input type="text" formControlName="keyword" class="form-control" style="font-size: 20px;width: 40%;margin:0% 5%; border-radius: 10px">
+                <button class="btn btn-warning" style="font-size: 20px;width: 10%;margin:0% 5%"><i class="bi bi-search"></i></button>
+              </div>
+            </form>
+            <table class="table mt-5" style="background: linear-gradient(90deg, #d0ded5, #343a40);">
+              <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let c of listCustomers.customerDTO">
+                <td>{{c.name}}</td>
+                <td>{{c.email}}</td>
+                <td>
+                  <button (click)="handleDeleteButton(c)" style="border-radius: 10px;margin-right: 8px;font-size: 20px;" class="btn btn-danger">
+                    <i class="bi bi-trash3-fill"></i>
+                  </button>
+                  <button (click)="goToUpdateCustomer(c)" class="btn btn-warning" style="border-radius: 10px;margin-right: 8px;font-size: 20px;">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button (click)="handleCustomerAccounts(c)" class="btn btn-success" style="border-radius: 10px;margin-right: 8px;font-size: 20px;">
+                    <i class="bi bi-credit-card"></i>
+                  </button>
+                </td>
+    
+              </tr>
+              </tbody>
+            </table>
+            <ul class="nav nav-pills">
+              <li *ngFor="let item of [].constructor(listCustomers.totalpage);let page=index" >
+                <a [ngClass]="page==currentPage?'btn-warning':'btn-outline-warning'" (click)="gotoPage(page)"
+                   class="btn m-2 " style="font-size: 26px;">{{page}}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </ng-container>
+    
+      <ng-template #failureOrLading class="text-danger">
+        <ng-container *ngIf="errorMessage; else loading">
+          <div class="text-danger">
+            {{errorMessage}}
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          Loading, please wait ...
+        </ng-template>
+      </ng-template>
+    </div>
+    </div>
+    

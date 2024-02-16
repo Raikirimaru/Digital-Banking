@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class AccountHistoryDTO {
-    private String accounId;
+    private String accountId;
     private double balance;
     private int currentPage;
     private int totalPage;

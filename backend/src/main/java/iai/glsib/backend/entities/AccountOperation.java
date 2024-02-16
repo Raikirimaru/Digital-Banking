@@ -2,6 +2,9 @@ package iai.glsib.backend.entities;
 
 import java.util.Date;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import iai.glsib.backend.enums.OperationType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,6 +29,7 @@ public class AccountOperation {
     @Enumerated(EnumType.STRING)
     private OperationType type;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private BankAccount bankAccount;
     private String description;
 }

@@ -16,3 +16,6 @@ spring:
 #         enabled: true
 #     api-docs: true
 # jdbc:h2:mem:bank
+
+jwt:
+    secret: H#jv7XpWz!qL*rUdG2kF5sP1oZnD4hM8yTcO9bVfI6aQ0gE3uYtXxNvC7eRiKlA9r6n

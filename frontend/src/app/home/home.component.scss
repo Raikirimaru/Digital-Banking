@@ -1,0 +1,41 @@
+.body {
+            
+    background-color: rgba(36, 30, 30, 0.5);
+    
+}
+.welcome-section {
+    text-align: center; /* Centre le contenu */
+    padding: 50px 20px; /* Espacement autour du contenu */
+    background: #f4f4f4; /* Couleur de fond légère */
+}
+
+.welcome-section h1 {
+    margin: 0 0 20px 0; /* Aucune marge sauf en bas */
+    color: #333; /* Couleur de texte foncée */
+    font-size: 2.5em; /* Taille de police */
+}
+
+.ibank {
+    display: block; /* Fait passer IBANK à la ligne suivante */
+    font-size: 4em; /* Taille de police plus grande */
+    color: #01080f; /* Couleur personnalisée, peut-être celle de votre thème ou logo */
+    font-weight: bold;
+}
+
+.bank-image {
+    max-width: 100%; /* Assure que l'image ne dépasse pas la largeur de l'écran */
+    height: auto; /* Garde le ratio de l'image */
+    margin-top: 20px; /* Espacement entre le texte et l'image */
+}
+.site-footer {
+padding: 20px 0;
+background-color: #01080f;
+color: white;
+text-align: center;
+}
+
+.container {
+width: 80%;
+margin: 0 auto; /* Centrer dans la page */
+padding: 0 15px;
+}
