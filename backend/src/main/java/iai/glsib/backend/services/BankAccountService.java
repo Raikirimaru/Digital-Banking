@@ -42,7 +42,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @AllArgsConstructor
 @Slf4j
-public class BankAccountService implements IBankAccountService {
+public class BankAccountService implements IBankAccountService<BankAccountDTO> {
 
     private CustomerRepository customerRepository;
     private BankAccountRepository bankAccountRepository;

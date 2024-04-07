@@ -10,14 +10,15 @@ import iai.glsib.backend.exceptions.BalanceNotSufficientException;
 import iai.glsib.backend.exceptions.BankAccountNotFoundException;
 import iai.glsib.backend.exceptions.CustomerNotFoundException;
 
-public interface IBankAccountService {
-        CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overdraft, Long customerid) throws CustomerNotFoundException;
+public interface IBankAccountService<T> {
+    
+    CurrentBankAccountDTO saveCurrentBankAccount(double initialBalance, double overdraft, Long customerid) throws CustomerNotFoundException;
 
     SavingBankAccountDTO saveSavingBankAccount(double initialBalance, double interestRate, Long customerid) throws CustomerNotFoundException;
 
-    List<BankAccountDTO> listbankAccounts();
+    List<T> listbankAccounts();
 
-    BankAccountDTO getBankAccount(String accountId) throws BankAccountNotFoundException;
+    T getBankAccount(String accountId) throws BankAccountNotFoundException;
 
     // depôt
     void debit(String accountId, double amount, String desc) throws BankAccountNotFoundException, BalanceNotSufficientException;
@@ -28,9 +29,9 @@ public interface IBankAccountService {
     // virements
     void transfer(String accountIdSrc, String accountIdDst, double amount, String desc) throws BankAccountNotFoundException, BalanceNotSufficientException;
 
-    List<BankAccountDTO> bankAccountListOfCustomer(Long id);
+    List<T> bankAccountListOfCustomer(Long id);
 
     BankAccountsDTO getBankAccountList(int page);
 
-    BankAccountDTO updateBankAccount(BankAccountDTO bankAccountDTO);
+    T updateBankAccount(T bankAccountDTO);
 }

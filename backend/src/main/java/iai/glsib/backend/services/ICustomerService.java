@@ -6,22 +6,22 @@ import iai.glsib.backend.dtos.CustomerDTO;
 import iai.glsib.backend.dtos.CustomersDTO;
 import iai.glsib.backend.exceptions.CustomerNotFoundException;
 
-public interface ICustomerService {
-    CustomerDTO saveCustomer(CustomerDTO customerDto);
+public interface ICustomerService<T> {
+    T saveCustomer(T customerDto);
     
-    List<CustomerDTO> listCustomers();
+    List<T> listCustomers();
 
     // List<CustomerDTO> searchCustomers(String keyword);
 
-    CustomerDTO getCustomer(Long customerId) throws CustomerNotFoundException;
+    T getCustomer(Long customerId) throws CustomerNotFoundException;
 
-    CustomerDTO updateCustomer(CustomerDTO customerDto);
+    T updateCustomer(T customerDto);
 
     void deleteCustomer(Long customerId);
 
-    List<CustomerDTO> listCustomers(int page);
+    List<T> listCustomers(int page);
 
-    CustomerDTO getCustomerByName(String name);
+    T getCustomerByName(String name);
 
     CustomersDTO getCustomerByName(String keyword, int page) throws CustomerNotFoundException;
 }

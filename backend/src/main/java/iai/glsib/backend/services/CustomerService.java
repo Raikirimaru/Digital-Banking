@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Transactional
 @AllArgsConstructor
 @Slf4j
-public class CustomerService implements ICustomerService {
+public class CustomerService implements ICustomerService<CustomerDTO> {
 
     private CustomerRepository customerRepository;
     private BankAccountRepository bankAccountRepository;
